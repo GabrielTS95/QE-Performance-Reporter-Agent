@@ -1,0 +1,17 @@
+# IDE/editor metadata
+.idea/
+.vscode/
+
+# Real execution inputs and generated reports can contain private project data.
+# Keep only folder placeholders and documentation.
+inputs/**
+!inputs/.gitkeep
+!inputs/evidencias/
+!inputs/evidencias/README.md
+
+outputs/**
+!outputs/.gitkeep
+
+# OS files
+Thumbs.db
+Desktop.ini
