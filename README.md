@@ -228,6 +228,22 @@ Elementos visuales esperados:
 
 Los graficos deben construirse con HTML/CSS usando datos reales de los archivos de entrada. Si no hay datos suficientes para un grafico, el agente debe declararlo en `Limitaciones del Analisis` en lugar de inventar valores.
 
+## Estabilidad entre modelos
+
+El framework esta disenado para reducir diferencias cuando se ejecuta con modelos distintos. Aun asi, si las instrucciones son demasiado abiertas, cada modelo puede interpretar el diseno, el orden de secciones o la redaccion de forma diferente.
+
+Para controlar esto, `skills/skill-generar-reporte.md` define un contrato de salida estable. Ese contrato fija:
+
+- Orden exacto de secciones.
+- Nombres exactos de secciones.
+- Estados permitidos.
+- Reglas para decidir el resultado general.
+- Orden de cards KPI.
+- Orden deterministico de endpoints o transacciones.
+- Reglas para no crear versiones alternativas del reporte si el usuario no las solicita.
+
+`skills/skill-validacion-reporte.md` debe corregir el HTML si detecta que el modelo cambio esa estructura.
+
 ## Reglas del agente
 
 - El agente siempre debe comunicarse en espanol.
@@ -242,6 +258,7 @@ Los graficos deben construirse con HTML/CSS usando datos reales de los archivos 
 - Debe usar las evidencias complementarias como soporte contextual, sin reemplazar las metricas oficiales de Jira o JMeter.
 - Debe declarar limitaciones cuando falten datos o una evidencia no sea legible.
 - Debe generar un HTML visual y profesional con cards KPI, iconos grandes, graficos por endpoint/transaccion, matriz SLA y galeria de evidencias cuando existan datos.
+- Debe respetar el contrato de salida estable para que el reporte mantenga estructura consistente entre modelos.
 - Debe validar el HTML final antes de terminar el flujo.
 - Debe guardar el reporte final directamente en `outputs/`.
 

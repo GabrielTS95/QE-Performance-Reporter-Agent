@@ -79,3 +79,58 @@ when_to_use: Usalo como paso final despues de comparar Jira, JMeter y las eviden
    - En movil, las secciones deben apilarse sin romper el contenido.
    - Las barras y tablas deben conservar legibilidad basica.
 20. Genera el codigo fuente y guardalo directamente en la carpeta `/outputs`.
+
+## Contrato de salida estable entre modelos
+
+Este contrato es obligatorio. Su objetivo es que el reporte mantenga la misma estructura aunque el framework sea ejecutado con modelos diferentes.
+
+1. No cambies el orden ni el nombre de las secciones principales. Usa exactamente esta secuencia:
+
+   | Orden | ID HTML sugerido | Titulo exacto |
+   |---|---|---|
+   | 1 | `resumen-ejecutivo` | `Resumen Ejecutivo` |
+   | 2 | `contexto-prueba` | `Contexto de la Prueba` |
+   | 3 | `indicadores-clave` | `Indicadores Clave` |
+   | 4 | `graficos-transacciones` | `Graficos por Endpoint o Transaccion` |
+   | 5 | `criterios-esperados` | `Criterios Esperados` |
+   | 6 | `cumplimiento-criterios` | `Cumplimiento de Criterios de Aceptacion` |
+   | 7 | `matriz-sla` | `Matriz de Cumplimiento SLA` |
+   | 8 | `analisis-tipo-prueba` | `Analisis Segun Tipo de Prueba` |
+   | 9 | `evidencias-complementarias` | `Evidencias Complementarias` |
+   | 10 | `hallazgos-principales` | `Hallazgos Principales` |
+   | 11 | `cuellos-botella` | `Analisis de Cuellos de Botella` |
+   | 12 | `riesgos` | `Riesgos` |
+   | 13 | `recomendaciones` | `Recomendaciones Accionables` |
+   | 14 | `limitaciones` | `Limitaciones del Analisis` |
+   | 15 | `conclusion-final` | `Conclusion Final` |
+
+2. La seccion `Evidencias Complementarias` solo puede omitirse cuando el usuario eligio no agregar evidencias o no existen archivos validos. Si existen evidencias, la seccion es obligatoria.
+3. No agregues secciones nuevas con nombres alternativos como `Version gerencial`, `Analisis tecnico extendido`, `Detalle ejecutivo`, `Reporte resumido` o similares.
+4. No termines el reporte ni la respuesta final ofreciendo una `version 2`, una version gerencial o una version tecnica alternativa, salvo que el usuario lo haya solicitado explicitamente.
+5. Usa siempre el mismo orden de cards KPI cuando existan datos:
+   1. Resultado general.
+   2. Muestras o requests.
+   3. Error rate.
+   4. Latencia P90/P95.
+   5. Throughput.
+   6. Duracion o concurrencia.
+6. Si una card KPI no tiene dato verificable, no inventes valores. Muestra `No disponible` solo si la ausencia del dato afecta la decision del reporte y declara el faltante en `Limitaciones del Analisis`.
+7. Ordena endpoints o transacciones de forma deterministica:
+   - Primero por mayor P95 si existe.
+   - Si no existe P95, por mayor P90.
+   - Si no existe P90/P95, por mayor promedio.
+   - Si hay empate, ordena alfabeticamente por nombre de endpoint o transaccion.
+   - Muestra maximo 10 elementos en graficos de ranking y explica en una nota si hubo mas elementos.
+8. Usa estas reglas para el resultado general:
+   - `Fallido`: existe al menos un criterio de aceptacion o SLA critico en `No cumple`.
+   - `Parcial`: no hay fallas criticas, pero existe al menos un criterio en `Parcial` o una evidencia relevante no concluyente.
+   - `No determinado`: faltan datos esenciales para decidir el cumplimiento de los criterios principales.
+   - `Exitoso`: todos los criterios medibles cumplen y no existen riesgos relevantes en JMeter o evidencias.
+9. Usa una sola paleta visual durante todo el reporte:
+   - Verde: `Cumple` o `Exitoso`.
+   - Rojo: `No cumple` o `Fallido`.
+   - Amarillo: `Parcial`.
+   - Gris: `No definido en Jira`, `No determinado` o `No disponible`.
+10. Manten el mismo lenguaje para estados y resultados. No uses sinonimos como `Aprobado`, `Rechazado`, `OK`, `Fail`, `Warning` o `N/A`.
+11. Cada tabla obligatoria debe conservar sus columnas. No cambies los nombres de columnas aunque otro modelo prefiera otra redaccion.
+12. Toda conclusion debe citar la fuente entre parentesis o en columna visible: `Jira`, `JMeter`, `Evidencia complementaria` o combinaciones de estas.
