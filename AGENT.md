@@ -103,4 +103,7 @@ Cuando el usuario te pida ejecutar o generar un reporte, sigue este orden exacto
 9. Si el usuario agrego evidencias adicionales, lee y ejecuta `skills/skill-analisis-evidencias.md`.
 10. Lee y ejecuta `skills/skill-generar-reporte.md` respetando el contrato de salida estable para que el reporte mantenga la misma estructura aunque se ejecute con otro modelo.
 11. Lee y ejecuta `skills/skill-validacion-reporte.md` para revisar claridad, consistencia, trazabilidad y completitud del HTML generado.
-12. Guarda el resultado final validado en la carpeta `/outputs` con el nombre `reporte_[TIPO_DE_PRUEBA]_[FECHA].html`.
+12. Guarda el resultado final validado en la carpeta `/outputs` con el nombre `ReportePruebasDePerformances_[TIPO_DE_PRUEBA]_[DDMMAAAA]_[HHMMSS].html`.
+    - Usa el tipo de prueba seleccionado en mayusculas: `CARGA`, `ESTRES`, `PICO` o `RESISTENCIA`.
+    - Usa la fecha y hora local del momento de generacion.
+    - No uses `:` en la hora porque Windows no permite dos puntos en nombres de archivo. Ejemplo valido: `ReportePruebasDePerformances_CARGA_20092026_220000.html`.

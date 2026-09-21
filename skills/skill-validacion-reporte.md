@@ -38,6 +38,8 @@ when_to_use: Usalo despues de generar el reporte HTML y antes de dar por termina
    - Los graficos usan datos reales y no inventados.
    - Las rutas de imagenes de evidencia funcionan desde `/outputs`.
    - El reporte es legible en escritorio y no se rompe en movil.
+   - El archivo se guardo con el patron `ReportePruebasDePerformances_[TIPO_DE_PRUEBA]_[DDMMAAAA]_[HHMMSS].html`.
+   - El nombre del archivo no contiene dos puntos `:` ni caracteres invalidos para Windows.
 7. Valida estabilidad entre modelos:
    - Las secciones principales usan exactamente los titulos definidos en el contrato de salida estable.
    - El orden de secciones coincide con el contrato de salida estable.

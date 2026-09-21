@@ -79,6 +79,18 @@ when_to_use: Usalo como paso final despues de comparar Jira, JMeter y las eviden
    - En movil, las secciones deben apilarse sin romper el contenido.
    - Las barras y tablas deben conservar legibilidad basica.
 20. Genera el codigo fuente y guardalo directamente en la carpeta `/outputs`.
+21. Usa este formato obligatorio para el nombre del archivo:
+
+   ```text
+   ReportePruebasDePerformances_[TIPO_DE_PRUEBA]_[DDMMAAAA]_[HHMMSS].html
+   ```
+
+   Reglas:
+   - `[TIPO_DE_PRUEBA]` debe ser `CARGA`, `ESTRES`, `PICO` o `RESISTENCIA`, segun la opcion seleccionada por el usuario.
+   - `[DDMMAAAA]` debe corresponder a la fecha local de generacion.
+   - `[HHMMSS]` debe corresponder a la hora local de generacion en formato de 24 horas.
+   - No uses dos puntos `:` en la hora porque Windows no permite ese caracter en nombres de archivo.
+   - Ejemplo valido: `ReportePruebasDePerformances_CARGA_20092026_220000.html`.
 
 ## Contrato de salida estable entre modelos
 

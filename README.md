@@ -139,14 +139,18 @@ Si existe Application Insights, tambien se recomienda exportar CSV desde Logs pa
 El reporte final se guarda en `outputs/` con el siguiente formato de nombre:
 
 ```text
-reporte_[TIPO_DE_PRUEBA]_[FECHA].html
+ReportePruebasDePerformances_[TIPO_DE_PRUEBA]_[DDMMAAAA]_[HHMMSS].html
 ```
 
 Ejemplo:
 
 ```text
-reporte_CARGA_2026-09-19.html
+ReportePruebasDePerformances_CARGA_20092026_220000.html
 ```
+
+El tipo de prueba se registra en mayusculas: `CARGA`, `ESTRES`, `PICO` o `RESISTENCIA`.
+
+La fecha y hora corresponden al momento local de generacion del reporte. La hora se guarda como `HHMMSS` sin dos puntos porque Windows no permite `:` en nombres de archivo.
 
 ## Contenido del reporte
 
