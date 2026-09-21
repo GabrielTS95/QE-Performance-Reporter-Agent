@@ -23,6 +23,7 @@ qe-performances-reporter/
     +-- skill-analisis-jira.md
     +-- skill-analisis-jmeter.md
     +-- skill-analisis-evidencias.md
+    +-- skill-recomendaciones-monitoreo.md
     +-- skill-generar-reporte.md
     +-- skill-validacion-reporte.md
 ```
@@ -36,6 +37,7 @@ qe-performances-reporter/
 - `skills/skill-analisis-jira.md`: extrae la historia de usuario y los criterios de aceptacion desde Jira.
 - `skills/skill-analisis-jmeter.md`: analiza las metricas de JMeter segun el tipo de prueba.
 - `skills/skill-analisis-evidencias.md`: analiza evidencias complementarias cuando el usuario decide agregarlas.
+- `skills/skill-recomendaciones-monitoreo.md`: recomienda metricas y agregaciones a exportar segun la herramienta de monitoreo antes de generar el reporte.
 - `skills/skill-generar-reporte.md`: construye el reporte HTML final.
 - `skills/skill-validacion-reporte.md`: revisa el HTML generado para asegurar claridad, consistencia, trazabilidad y completitud.
 
@@ -49,15 +51,16 @@ Cuando el usuario solicita generar un reporte, el agente sigue este flujo:
    - `2`: Estres
    - `3`: Pico
    - `4`: Resistencia
-3. Pregunta si el usuario desea agregar evidencias adicionales para enriquecer el analisis, mostrando ejemplos de capturas, logs y reportes complementarios.
-4. Si el usuario responde que si, revisa `inputs/evidencias/` o las rutas indicadas por el usuario.
-5. Revisa la carpeta `inputs/` para encontrar los archivos requeridos.
-6. Analiza el XML de Jira para identificar la historia de usuario y criterios de aceptacion.
-7. Analiza los resultados de JMeter y extrae metricas clave.
-8. Analiza las evidencias complementarias cuando existan.
-9. Compara expectativas contra resultados reales y evidencias disponibles.
-10. Genera un reporte HTML en la carpeta `outputs/`.
-11. Valida que el reporte sea entendible, consistente y trazable antes de finalizar.
+3. Revisa si Jira o el usuario mencionan una herramienta de monitoreo y brinda recomendaciones de metricas, agregaciones y archivos antes de pedir evidencias.
+4. Pregunta si el usuario desea agregar evidencias adicionales para enriquecer el analisis, mostrando ejemplos de capturas, logs y reportes complementarios.
+5. Si el usuario responde que si, revisa `inputs/evidencias/` o las rutas indicadas por el usuario.
+6. Revisa la carpeta `inputs/` para encontrar los archivos requeridos.
+7. Analiza el XML de Jira para identificar la historia de usuario y criterios de aceptacion.
+8. Analiza los resultados de JMeter y extrae metricas clave.
+9. Analiza las evidencias complementarias cuando existan.
+10. Compara expectativas contra resultados reales y evidencias disponibles.
+11. Genera un reporte HTML en la carpeta `outputs/`.
+12. Valida que el reporte sea entendible, consistente y trazable antes de finalizar.
 
 ## Tipos de prueba soportados
 
@@ -111,6 +114,25 @@ throughput-prueba-carga.csv
 El agente no debe inventar metricas. Toda conclusion debe basarse estrictamente en los archivos disponibles dentro de `inputs/`.
 
 Las evidencias complementarias ayudan a explicar el comportamiento observado, por ejemplo saturacion de CPU, consumo de memoria, errores en logs o degradacion visible en dashboards. Si una imagen no permite leer un valor con claridad, el agente debe marcarlo como no legible y no debe inventar la metrica.
+
+## Recomendaciones de monitoreo
+
+Antes de generar el reporte, el agente debe recomendar que evidencias exportar segun la herramienta de monitoreo indicada en Jira o por el usuario.
+
+Para Azure Monitor, se recomienda exportar:
+
+| Metrica | Agregacion recomendada | Archivo sugerido |
+|---|---|---|
+| Requests | Sum | `azure-requests.csv` |
+| Response Time | Average | `azure-response-time-average.csv` |
+| Response Time | Maximum | `azure-response-time-maximum.csv` |
+| Http Server Errors / HTTP 5xx | Sum | `azure-http-5xx.csv` |
+| CPU Time | Sum | `azure-cpu-time.csv` |
+| Average Memory Working Set | Average | `azure-memory-average.csv` |
+| Memory Working Set | Maximum | `azure-memory-maximum.csv` |
+| Data In / Data Out | Sum | `azure-network.csv` |
+
+Si existe Application Insights, tambien se recomienda exportar CSV desde Logs para requests por endpoint, failed requests, dependencies, failed dependencies, exceptions y traces.
 
 ## Salida generada
 
@@ -193,6 +215,7 @@ Los graficos deben construirse con HTML/CSS usando datos reales de los archivos 
 - El agente siempre debe comunicarse en espanol.
 - No debe iniciar el analisis sin consultar antes el tipo de prueba.
 - Debe consultar si el usuario desea agregar evidencias adicionales antes de iniciar el analisis.
+- Debe brindar recomendaciones de monitoreo antes de pedir evidencias, adaptadas a la herramienta detectada en Jira o indicada por el usuario.
 - Debe mostrar preguntas claras, con saltos de linea, listas y ejemplos. No debe mostrar consultas largas en una sola linea.
 - Debe indicar que el usuario responda solo con el numero de la opcion cuando presente alternativas.
 - No debe inventar datos, metricas, SLAs ni conclusiones sin respaldo en los archivos de entrada.
