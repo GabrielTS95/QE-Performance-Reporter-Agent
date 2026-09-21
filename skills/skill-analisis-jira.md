@@ -12,6 +12,7 @@ when_to_use: Usalo como primer paso para entender que se esperaba de la prueba d
    - Descripcion funcional del flujo probado.
    - Criterios de aceptacion.
    - SLAs o expectativas medibles, como tiempo promedio, percentil 90, percentil 95, tasa de error, throughput, concurrencia maxima, duracion esperada o ventana de prueba.
+   - Ventana planificada o ejecutada de la prueba solo si el campo lo indica explicitamente.
    - Riesgos, restricciones o notas funcionales relevantes para interpretar el resultado.
 3. Normaliza los criterios esperados en una tabla temporal con esta estructura:
    - `criterio`
@@ -29,4 +30,6 @@ when_to_use: Usalo como primer paso para entender que se esperaba de la prueba d
    - `fuente`: seccion exacta del XML o nombre del custom field.
 6. Si un criterio no tiene una expectativa medible, no lo inventes. Registralo como `No determinado` y explica que falta un dato verificable.
 7. Si un criterio no existe en Jira, no lo inventes. Registralo como `No definido en Jira` solo cuando sea necesario compararlo en el reporte.
-8. Guarda esta informacion temporalmente para que el analisis de JMeter y el reporte final puedan comparar expectativas contra resultados reales.
+8. No uses fechas de creacion, actualizacion, resolucion o vencimiento del ticket como inicio o fin real de la prueba. Esas fechas solo pueden mostrarse como contexto de Jira si aportan valor.
+9. Si Jira contiene una ventana planificada de prueba, marcala como `ventana_planificada_jira`. Si contiene una ventana ejecutada explicitamente, marcala como `ventana_ejecucion_jira`.
+10. Guarda esta informacion temporalmente para que el analisis de JMeter y el reporte final puedan comparar expectativas contra resultados reales.

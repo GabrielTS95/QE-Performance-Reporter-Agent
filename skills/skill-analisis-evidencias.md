@@ -24,14 +24,18 @@ when_to_use: Usalo cuando el usuario indique que desea agregar evidencias adicio
 8. Normaliza cada evidencia en una tabla temporal con esta estructura:
    - `evidencia`
    - `tipo`
+   - `ventana_horaria`
+   - `zona_horaria`
    - `hallazgo`
    - `relacion_con_jmeter`
    - `limitacion`
    - `fuente`
 9. Si una evidencia contradice una conclusion basada en JMeter, no descartes ninguno de los datos. Registralo como una inconsistencia y agregalo a las limitaciones del analisis.
-10. Guarda temporalmente estos resultados para el reporte final:
+10. Si una captura, CSV o log de monitoreo muestra una hora distinta a JMeter, tratala como posible diferencia de zona horaria, desfase de reloj, ventana de monitoreo ampliada o evidencia tomada fuera del periodo exacto de prueba. No ajustes horas sin evidencia.
+11. Guarda temporalmente estos resultados para el reporte final:
    - Lista de evidencias revisadas.
    - Observaciones relevantes.
+   - Ventanas horarias detectadas y zona horaria si aparece.
    - Correlacion con metricas de JMeter.
    - Limitaciones de lectura o calidad de la evidencia.
    - Aporte de las evidencias al nivel de confianza del analisis.

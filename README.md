@@ -152,6 +152,27 @@ El tipo de prueba se registra en mayusculas: `CARGA`, `ESTRES`, `PICO` o `RESIST
 
 La fecha y hora corresponden al momento local de generacion del reporte. La hora se guarda como `HHMMSS` sin dos puntos porque Windows no permite `:` en nombres de archivo.
 
+## Manejo de fechas y horas
+
+El reporte diferencia tres conceptos que pueden tener horas distintas:
+
+| Concepto | Significado | Fuente recomendada |
+|---|---|---|
+| Fecha/hora de generacion del reporte | Momento en que se crea el archivo HTML. | Sistema local donde se ejecuta el agente. |
+| Inicio y fin de ejecucion | Ventana real de la prueba de performance. | Timestamps de JMeter en `.jtl` o `.csv`; dashboard HTML de JMeter si muestra esa informacion. |
+| Ventana de monitoreo | Rango horario observado en Azure Monitor, Grafana, APM, logs u otra evidencia. | Capturas, CSV o logs de monitoreo. |
+
+Estas horas pueden no coincidir por:
+
+- Diferencia de zona horaria entre Jira, JMeter, Azure Monitor y el equipo local.
+- Azure Monitor u otras herramientas exportan datos en UTC o en la zona horaria configurada en el portal.
+- El reporte HTML se genera despues de terminar la prueba, por eso su hora no representa el inicio ni el fin de ejecucion.
+- Las capturas de monitoreo pueden cubrir una ventana mas amplia, por ejemplo 5 minutos antes y despues de la prueba.
+- El XML de Jira puede contener fechas de creacion, actualizacion o planificacion del ticket, que no necesariamente son la ejecucion real.
+- El reloj del equipo que ejecuta JMeter puede estar desfasado frente al servidor o la herramienta de monitoreo.
+
+El agente debe usar la hora de generacion solo para el nombre del archivo y la portada. Para inicio y fin de ejecucion debe priorizar timestamps de JMeter. Si la zona horaria no esta clara, debe indicarlo como limitacion.
+
 ## Contenido del reporte
 
 El HTML generado debe incluir:

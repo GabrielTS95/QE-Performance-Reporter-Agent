@@ -15,9 +15,9 @@ when_to_use: Usalo como paso final despues de comparar Jira, JMeter y las eviden
    - Usa una **galeria visual de evidencias** si existen imagenes en `/inputs/evidencias`.
    - Usa tablas solo cuando la comparacion sea mas clara que un card o grafico.
 3. Usa una estructura fija para todos los reportes:
-   - **Portada/Hero:** nombre del reporte, tipo de prueba, fecha de generacion, resultado general, nivel de confianza y fuentes analizadas.
+   - **Portada/Hero:** nombre del reporte, tipo de prueba, fecha/hora de generacion del reporte, resultado general, nivel de confianza y fuentes analizadas.
    - **Resumen Ejecutivo:** resultado general (`Exitoso`, `Fallido`, `Parcial` o `No determinado`), motivo principal, riesgo para negocio o produccion, recomendacion principal y nivel de confianza.
-   - **Contexto de la Prueba:** historia de usuario, flujo evaluado, objetivo de la prueba, duracion, concurrencia y alcance cuando existan datos.
+   - **Contexto de la Prueba:** historia de usuario, flujo evaluado, objetivo de la prueba, inicio de ejecucion, fin de ejecucion, duracion, zona horaria, concurrencia y alcance cuando existan datos.
    - **Indicadores Clave:** cards KPI con iconos grandes para throughput, P90/P95, error rate, muestras, duracion o usuarios concurrentes cuando existan.
    - **Graficos por Endpoint o Transaccion:** barras horizontales para P90/P95, tasa de error, throughput o samples por endpoint/transaccion. Incluye referencias de SLA cuando existan.
    - **Criterios Esperados:** tabla con criterios extraidos de Jira. Si un criterio no existe, mostrar `No definido en Jira`.
@@ -91,6 +91,14 @@ when_to_use: Usalo como paso final despues de comparar Jira, JMeter y las eviden
    - `[HHMMSS]` debe corresponder a la hora local de generacion en formato de 24 horas.
    - No uses dos puntos `:` en la hora porque Windows no permite ese caracter en nombres de archivo.
    - Ejemplo valido: `ReportePruebasDePerformances_CARGA_20092026_220000.html`.
+22. Separa explicitamente estos datos temporales en el reporte:
+   - `Fecha/hora de generacion del reporte`: momento en que se crea el HTML.
+   - `Inicio de ejecucion`: inicio real de la prueba segun JMeter u otra fuente valida.
+   - `Fin de ejecucion`: fin real de la prueba segun JMeter u otra fuente valida.
+   - `Ventana de monitoreo`: rango horario visible en Azure Monitor, Grafana, APM, logs u otra evidencia.
+23. Si inicio o fin de ejecucion no pueden determinarse con datos confiables, muestra `No determinado` y explica la razon en `Limitaciones del Analisis`.
+24. No calcules inicio o fin de ejecucion a partir de la hora de generacion del reporte ni del nombre del archivo.
+25. Si hay diferencia entre la ventana de JMeter y la ventana de monitoreo, muestrala como observacion o limitacion. No la corrijas sin evidencia de zona horaria o desfase de reloj.
 
 ## Contrato de salida estable entre modelos
 

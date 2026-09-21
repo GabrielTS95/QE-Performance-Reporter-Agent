@@ -27,6 +27,9 @@ when_to_use: Usalo despues de generar el reporte HTML y antes de dar por termina
    - No hay SLAs, endpoints, valores, fechas ni causas inventadas.
    - Las evidencias complementarias tienen hallazgo, relacion con JMeter y limitacion cuando aplique.
    - Cada criterio de aceptacion evaluado referencia una evidencia o declara claramente que no hay datos suficientes.
+   - La hora de generacion del reporte no se usa como inicio o fin de ejecucion de la prueba.
+   - El inicio y fin de ejecucion tienen fuente visible. Si no se pueden determinar, aparecen como `No determinado`.
+   - Las ventanas horarias de monitoreo se muestran como soporte y no reemplazan automaticamente la ventana de ejecucion de JMeter.
 5. Valida completitud:
    - No existen secciones vacias.
    - Si faltan datos, estan declarados en `Limitaciones del Analisis`.
@@ -35,6 +38,7 @@ when_to_use: Usalo despues de generar el reporte HTML y antes de dar por termina
 6. Valida presentacion visual:
    - El HTML incluye CSS embebido y no depende de internet, CDNs ni librerias externas.
    - El hero principal muestra resultado general de forma visible.
+   - El hero o contexto separa fecha/hora de generacion, inicio de ejecucion, fin de ejecucion y zona horaria cuando existan datos.
    - Los graficos usan datos reales y no inventados.
    - Las rutas de imagenes de evidencia funcionan desde `/outputs`.
    - El reporte es legible en escritorio y no se rompe en movil.
