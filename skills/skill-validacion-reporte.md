@@ -15,6 +15,8 @@ when_to_use: Usalo despues de generar el reporte HTML y antes de dar por termina
    - Existen cards KPI con iconos grandes para las metricas principales cuando hay datos suficientes.
    - Existen graficos por endpoint/transaccion cuando hay datos suficientes para construirlos.
    - Las evidencias visuales se muestran como galeria si existen imagenes validas.
+   - Existe una seccion de cumplimiento de criterios de aceptacion extraidos de Jira.
+   - Cada criterio de aceptacion tiene estado, evidencia, justificacion y recomendacion.
 3. Valida consistencia:
    - Los estados de metricas pertenecen solo a `Cumple`, `No cumple`, `Parcial`, `No definido en Jira` o `No determinado`.
    - El resultado general pertenece solo a `Exitoso`, `Fallido`, `Parcial` o `No determinado`.
@@ -23,10 +25,12 @@ when_to_use: Usalo despues de generar el reporte HTML y antes de dar por termina
    - Toda metrica o conclusion tiene fuente visible: Jira, JMeter o evidencia complementaria.
    - No hay SLAs, endpoints, valores, fechas ni causas inventadas.
    - Las evidencias complementarias tienen hallazgo, relacion con JMeter y limitacion cuando aplique.
+   - Cada criterio de aceptacion evaluado referencia una evidencia o declara claramente que no hay datos suficientes.
 5. Valida completitud:
    - No existen secciones vacias.
    - Si faltan datos, estan declarados en `Limitaciones del Analisis`.
    - Si no hubo evidencias adicionales, no aparece una seccion vacia de evidencias.
+   - Los criterios de aceptacion del XML de Jira no quedan sin evaluacion. Si alguno no puede evaluarse, debe figurar como `No determinado`.
 6. Valida presentacion visual:
    - El HTML incluye CSS embebido y no depende de internet, CDNs ni librerias externas.
    - El hero principal muestra resultado general de forma visible.

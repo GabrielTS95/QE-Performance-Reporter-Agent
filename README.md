@@ -158,6 +158,7 @@ El HTML generado debe incluir:
 - Graficos visuales por endpoint o transaccion cuando existan datos suficientes.
 - Contexto de la prueba y descripcion de la historia de usuario evaluada.
 - Criterios esperados extraidos de Jira.
+- Cumplimiento de criterios de aceptacion extraidos del XML de Jira, con estado, evidencia, justificacion y recomendacion.
 - Matriz visual de cumplimiento SLA.
 - Analisis segun el tipo de prueba seleccionada.
 - Galeria y analisis de evidencias complementarias, si fueron proporcionadas.
@@ -193,6 +194,23 @@ Cada hallazgo importante debe separar cuatro elementos:
 
 Las recomendaciones deben indicar prioridad, componente afectado, motivo, accion sugerida y beneficio esperado.
 
+## Cumplimiento de criterios de aceptacion
+
+El reporte debe evaluar cada criterio de aceptacion del XML de Jira. Esta seccion debe responder claramente que criterios cumplen, cuales no cumplen, cuales cumplen parcialmente y cuales no se pueden determinar por falta de datos.
+
+La tabla debe incluir:
+
+| Columna | Descripcion |
+|---|---|
+| Criterio | Identificador y nombre del criterio, por ejemplo `CA 01 - Objetivos de Performance para Carga`. |
+| Esperado segun Jira | SLA, condicion o regla extraida del XML. |
+| Evidencia encontrada | Metrica de JMeter, evidencia de monitoreo, log o dato usado para evaluar. |
+| Estado | `Cumple`, `No cumple`, `Parcial` o `No determinado`. |
+| Justificacion | Motivo breve basado en datos. |
+| Recomendacion | Accion concreta asociada al criterio. |
+
+Si no hay datos suficientes para evaluar un criterio, el agente debe marcarlo como `No determinado` y explicar que evidencia falta.
+
 ## Estandar visual del reporte
 
 El reporte HTML debe ser ejecutivo, profesional y facil de leer. Debe abrirse directamente en navegador sin depender de internet, CDNs ni librerias externas.
@@ -220,6 +238,7 @@ Los graficos deben construirse con HTML/CSS usando datos reales de los archivos 
 - Debe indicar que el usuario responda solo con el numero de la opcion cuando presente alternativas.
 - No debe inventar datos, metricas, SLAs ni conclusiones sin respaldo en los archivos de entrada.
 - Debe usar los criterios de Jira como base para evaluar los resultados de JMeter.
+- Debe evaluar cada criterio de aceptacion del XML de Jira e incluir estado, justificacion y recomendacion.
 - Debe usar las evidencias complementarias como soporte contextual, sin reemplazar las metricas oficiales de Jira o JMeter.
 - Debe declarar limitaciones cuando falten datos o una evidencia no sea legible.
 - Debe generar un HTML visual y profesional con cards KPI, iconos grandes, graficos por endpoint/transaccion, matriz SLA y galeria de evidencias cuando existan datos.

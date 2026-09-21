@@ -19,6 +19,14 @@ when_to_use: Usalo como primer paso para entender que se esperaba de la prueba d
    - `unidad`
    - `fuente`
    - `observacion`
-4. Si un criterio no existe en Jira, no lo inventes. Registralo como `No definido en Jira` cuando sea necesario compararlo en el reporte.
-5. Si un criterio es ambiguo o no medible, registralo como `No determinado` y explica brevemente la limitacion.
-6. Guarda esta informacion temporalmente para que el analisis de JMeter y el reporte final puedan comparar expectativas contra resultados reales.
+4. Extrae cada criterio de aceptacion de Jira como un item evaluable independiente. Si Jira usa etiquetas como `CA 01`, `CA 02`, `CA 03`, conserva ese identificador.
+5. Normaliza los criterios de aceptacion en una tabla temporal con esta estructura:
+   - `id_criterio`: ejemplo `CA 01`.
+   - `criterio`: nombre o resumen corto del criterio.
+   - `descripcion`: texto funcional resumido.
+   - `expectativa_medible`: SLA, regla o condicion verificable extraida de Jira.
+   - `tipo`: `Performance`, `Funcional bajo carga`, `Monitoreo`, `Roles/Permisos`, `Estabilidad` u otro tipo claro.
+   - `fuente`: seccion exacta del XML o nombre del custom field.
+6. Si un criterio no tiene una expectativa medible, no lo inventes. Registralo como `No determinado` y explica que falta un dato verificable.
+7. Si un criterio no existe en Jira, no lo inventes. Registralo como `No definido en Jira` solo cuando sea necesario compararlo en el reporte.
+8. Guarda esta informacion temporalmente para que el analisis de JMeter y el reporte final puedan comparar expectativas contra resultados reales.

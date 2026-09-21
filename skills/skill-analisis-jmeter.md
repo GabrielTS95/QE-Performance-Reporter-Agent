@@ -43,13 +43,27 @@ when_to_use: Usalo despues de conocer los criterios de aceptacion y el tipo de p
    - `interpretacion`: que significa frente al criterio esperado o al tipo de prueba.
    - `impacto`: riesgo tecnico o de negocio.
    - `recomendacion`: accion concreta sugerida.
-9. Determina el resultado general de la prueba usando solo estos valores:
+9. Evalua cada criterio de aceptacion extraido desde Jira contra las metricas disponibles de JMeter y las evidencias complementarias. Genera una matriz temporal con esta estructura:
+   - `id_criterio`
+   - `criterio`
+   - `estado`: usa solo `Cumple`, `No cumple`, `Parcial` o `No determinado`.
+   - `evidencia`: metrica, archivo o dato que respalda el estado.
+   - `justificacion`: motivo breve y claro del estado.
+   - `recomendacion`: accion concreta asociada a ese criterio.
+   - `fuente`: Jira, JMeter, evidencia complementaria o combinacion de fuentes.
+10. Reglas para evaluar criterios de aceptacion:
+   - Usa `Cumple` solo si existe evidencia suficiente y todos los valores relacionados estan dentro del criterio esperado.
+   - Usa `No cumple` si una metrica relacionada supera el SLA, hay errores relevantes o la condicion esperada no se sostiene.
+   - Usa `Parcial` si una parte del criterio cumple, pero otra no, o si hay evidencia mixta.
+   - Usa `No determinado` si faltan datos suficientes para evaluar el criterio.
+   - No marques como `Cumple` un criterio funcional bajo carga si solo validaste performance y no hay evidencia funcional del comportamiento.
+11. Determina el resultado general de la prueba usando solo estos valores:
    - `Exitoso`
    - `Fallido`
    - `Parcial`
    - `No determinado`
-10. Calcula un nivel de confianza del analisis:
+12. Calcula un nivel de confianza del analisis:
    - `Alto`: Jira tiene criterios medibles, JMeter contiene metricas completas y las evidencias adicionales confirman los hallazgos principales.
    - `Medio`: Jira y JMeter permiten concluir, pero faltan evidencias de infraestructura, desglose por endpoint o algun criterio secundario.
    - `Bajo`: faltan criterios, metricas clave o los archivos disponibles no permiten confirmar la causa.
-11. Guarda temporalmente las metricas, hallazgos, resultado general, riesgos y nivel de confianza para el reporte final.
+13. Guarda temporalmente las metricas, hallazgos, matriz de criterios de aceptacion, resultado general, riesgos y nivel de confianza para el reporte final.
